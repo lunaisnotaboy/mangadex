@@ -1,0 +1,25 @@
+{
+  "name": "mangadex",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.3.0",
+    "bootstrap": "4",
+    "bootstrap-select": "^1.13.18",
+    "jquery": "^3.6.0",
+    "lightbox2": "^2.11.3",
+    "owl.carousel": "^2.3.4",
+    "popper.js": "^1.16.1",
+    "sass": "^1.32.11",
+    "sass-loader": "10",
+    "turbolinks": "^5.2.0"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "@webpack-cli/serve": "^1.3.1",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

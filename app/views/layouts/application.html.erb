@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <%# The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags %>
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="MangaDex" />
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
+    <meta name="keywords" itemprop="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : 'mangadex,manga,scanlations' %>" />
+
+    <meta name="theme-color" content="#<%= session[:user_style] == 1 ? 'eeeeee' : '272b30' %>" />
+
+    <meta property="og:site_name" content="<%= content_for?(:site_name) ? yield(:site_name) : 'MangaDex' %>" />
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'Read scanlations online for free!' %>" />
+    <meta property="og:image" content="<%= content_for?(:image) ? yield(:image) : '' %>" />
+    <meta property="og:url" content="<%= "#{request.url}" %>" />
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:site" content="@mangadex" />
+
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+    <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
+    <link rel="search" type="application/opensearchdescription+xml" title="MangaDex Quick Search" href="/opensearch.xml">
+
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% if @chapter.present? %>
+      <meta name="app" content="MangaDex" data-guest="<%= session[:user_id].present? ? 0 : 1 %>" data-chapter-id="<%= content_for?(:page_id) ? yield(:page_id) : '' %>" data-page="<%= content_for?(:p) ? yield(:p) : 1 %>" />
+      <%= stylesheet_pack_tag 'reader' %>
+    <% end %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/f41de4a235.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <%= render partial: 'shared/navbar' %>
+    <%= yield %>
+  </body>
+</html>

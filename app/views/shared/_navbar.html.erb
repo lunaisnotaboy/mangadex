@@ -1,0 +1,15 @@
+<nav class="navbar fixed-top navbar-expand-lg text-nowrap <%= session[:dark_mode].blank? ? 'navbar-light bg-light' : 'navbar-dark bg-dark' %>">
+  <div class="container">
+    <% if (session[:navigation] == 1) %>
+      <button class="navbar-toggler mr-auto" type="button" data-toggle="modal" data-target="#left_modal">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <% else %>
+      <button class="navbar-toggler mr-auto" type="button" data-toggle="modal" data-target="#homepage_settings_modal">
+        <span class="navbar-icon"><%= icon('fas', 'cog') %></span>
+      </button>
+    <% end %>
+
+    <a class="p-0 navbar-brand" href="<%= root_url %>"><img class="mx-2" height="38px" src="/navbar.svg" alt="MangaDex" title="MangaDex" /> <small class="d-lg-none d-xl-inline">MangaDex</small></a>
+  </div>
+</nav>
