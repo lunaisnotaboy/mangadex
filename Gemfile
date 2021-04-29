@@ -19,6 +19,20 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# Use Devise for authentication
+gem 'devise', '~> 4.7', github: 'heartcombo/devise'
+# Use ActiveRecord Sessions
+gem 'activerecord-session_store', '~> 2.0'
+
+gem 'http', '~> 4.4'
+
+gem 'http_accept_language', '~> 2.1'
+
+gem 'httplog', '~> 1.4.3'
+
+gem 'oj', '~> 3.11'
+
+gem 'link_header', '~> 0.0'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
