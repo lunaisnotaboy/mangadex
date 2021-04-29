@@ -2,6 +2,13 @@
 
 What a reimplementation of MangaDex using Ruby on Rails could look like.
 
+## Setup
+
+Run `script/setup` and then just run `script/server`.
+
+To update, just run `script/update`, though `script/server` runs this each time it
+starts.
+
 ## DISCLAIMER
 
 MangaDex is owned by [mangadex.org], not me. This was just a fun exercise to sharpen
