@@ -102,7 +102,8 @@ CREATE TABLE public.users (
     admin boolean DEFAULT false,
     supporter boolean DEFAULT false,
     started_supporting_at timestamp without time zone,
-    total_chapters_read integer DEFAULT 0 NOT NULL
+    total_chapters_read integer DEFAULT 0 NOT NULL,
+    public_relations boolean DEFAULT false
 );
 
 
@@ -225,6 +226,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210429161925'),
 ('20210429170417'),
 ('20210429191208'),
-('20210429191904');
+('20210429191904'),
+('20210430135933');
 
 

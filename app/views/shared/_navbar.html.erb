@@ -106,11 +106,13 @@
             <% else %>
               <% if current_user.admin? %>
                 <a class="dropdown-item" href="/admin"><%= icon('fas', 'user-md') %> Admin</a>
+                <div class="dropdown-divider"></div>
               <% end %>
               <% if current_user.mod? %>
                 <a class="dropdown-item" href="/mod"><%= icon('fas', 'user-md') %> Moderation</a>
+                <div class="dropdown-divider"></div>
               <% end %>
-              <% if current_user.admin? || current_user.mod? %>
+              <% if current_user.public_relations? %>
                 <a class="dropdown-item" href="/pr"><%= icon('fas', 'user-md') %> Public Relations</a>
                 <div class="dropdown-divider"></div>
               <% end %>
