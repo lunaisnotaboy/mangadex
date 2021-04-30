@@ -1,0 +1,19 @@
+<% if alert %>
+  <%= display_alert('danger', 'Error', "#{alert}") %>
+<% end %>
+
+<% if notice %>
+  <%= display_alert('success', 'Notice', "#{notice}") %>
+<% end %>
+
+<div id="forgot_container" class="mx-auto form-narrow">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, id: "reset_form" }) do |f| %>
+    <h1 class="text-center">Reset Password</h1>
+    <hr />
+    <div class="form-group">
+      <%= f.label :email, class: "sr-only" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email Address" %>
+    </div>
+    <button class="btn btn-lg btn-danger btn-block" type="submit" id="reset_button"><%= icon('fas', 'sync') %> Send reset email</button>
+  <% end %>
+</div>

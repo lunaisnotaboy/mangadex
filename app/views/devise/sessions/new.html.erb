@@ -1,0 +1,67 @@
+<% if user_signed_in? == false %>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
+  <%= display_alert('info', 'Notice', "Clear your MangaDex cookies <strong>from all time</strong> by clicking <strong><a href='/login?clear_cookies=1'>this link</a></strong> if you have trouble logging in.") %>
+
+  <% if @cookies_cleared == true %>
+    <%= display_alert('success', 'Notice', 'Successfully cleared all mangadex cookies.') %>
+  <% end %>
+
+  <% if @ip_banned == true %>
+    <%= display_alert('danger', 'Error', 'Your IP is banned. Please wait a few hours or contact a Staff member on IRC/Discord.') %>
+  <% end %>
+
+  <% if alert %>
+    <%= display_alert('danger', 'Error', "#{alert}") %>
+  <% end %>
+
+  <div class="container" id="login_container">
+    <div class="row justify-content-md-center">
+      <div class="col col-md-auto">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { id: "login_form" }) do |f| %>
+          <h1 class="text-center">Login</h1>
+          <hr />
+          <div class="form-group">
+            <%= f.label :username, class: 'sr-only' %>
+            <%= f.text_field :login, class: 'form-control', placeholder: 'username' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password, class: 'sr-only' %>
+            <%= f.password_field :password, class: 'form-control', placeholder: 'password' %>
+          </div>
+          <div class="form-group">
+            <%= f.check_box :remember_me, value: '1' %>
+            <%= f.label :remember_me %>
+          </div>
+          <button tabindex="5" class="btn btn-lg btn-success btn-block" type="submit" id="login_button"><%= icon('fas', 'sign-in-alt') %> Login</button>
+          <a tabindex="6" href="<%= password_reset_path %>" class="btn btn-lg btn-warning btn-block" id="forgot_button"><%= icon('fas', 'sync') %> Reset password</a>
+          <a tabindex="7" href="<%= signup_path %>" class="btn btn-lg btn-info btn-block" id="signup_button"><%= icon('fas', 'pencil-alt') %> Sign up</a>
+        <% end %>
+      </div>
+      <div class="col col-md-5 text-wrap mt-3">
+        <h5>Activation Code/Password Reset Problems:</h5>
+        Contact <a href="mailto:mangadexstaff@gmail.com">mangadexstaff@gmail.com</a> for assistance, but include your <b>username</b> and the <b>email</b> you registered with. If you want your email changed, send it from the one currently on the account, not the one you want it changed to.<br><br>
+        These hosts usually don't receive it or it goes to spam:
+        <ul>
+          <li>school related emails</li>
+          <li>work related emails</li>
+          <li>hotmail.com</li>
+          <li>outlook.com</li>
+          <li>o2.pl</li>
+        </ul>
+
+        Your email quota was hit, you can send but can't receive emails, meaning we can't help you, typically occurs with:
+        <ul>
+          <li><a href="https://support.google.com/mail/answer/6374270">gmail.com</a></li>
+          <li><a href="https://support.apple.com/en-us/HT202305">icloud.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="mx-auto form-narrow" id="login_container">
+    <h1 class="text-center">Login</h1>
+    <hr />
+    <p class="text-center text-muted">You are logged in.</p>
+  </div>
+<% end %>

@@ -11,5 +11,128 @@
     <% end %>
 
     <a class="p-0 navbar-brand" href="<%= root_url %>"><img class="mx-2" height="38px" src="/navbar.svg" alt="MangaDex" title="MangaDex" /> <small class="d-lg-none d-xl-inline">MangaDex</small></a>
+
+    <% if (session[:navigation] == 1) %>
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="modal" data-target="#homepage_settings_modal">
+        <span class="navbar-icon"><%= icon('fas', 'cog') %></span>
+      </button>
+    <% elsif (session[:navigation] == 2) %>
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="modal" data-target="#right_modal">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <% else %>
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <% end %>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown mx-1">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'book') %> <%= t('navbar.manga') %></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item <%= current_page('titles') %>" href="/titles"><%= icon('fas', 'book') %> Titles</a>
+            <a class="dropdown-item <%= current_page('updates') %>" href="/updates"><%= icon('fas', 'sync') %> Updates</a>
+            <a class="dropdown-item <%= current_page('search') %>" href="/search"><%= icon('fas', 'search') %> Search</a>
+            <a class="dropdown-item <%= current_page('featured') %>" href="/featured"><%= icon('fas', 'tv') %> Featured</a>
+            <a class="dropdown-item" href="/manga"><%= icon('fas', 'question-circle') %> Random</a>
+            <a class="dropdown-item <%= current_page('manga_new') %>" href="/manga_new"><%= icon('fas', 'plus-circle') %> Add</a>
+          </div>
+        </li>
+        <% if user_signed_in? != true %>
+          <li class="nav-item mx-1" id="login">
+            <a class="nav-link" href="<%= login_path %>" title="You need to log in."><%= icon('fas', 'bookmark') %> Follows</a>
+          </li>
+        <% else %>
+          <li class="nav-item mx-1 <%= current_page('follows') %>" id="follows">
+            <a class="nav-link" href="/follows"><%= icon('fas', 'bookmark') %> Follows</a>
+          </li>
+        <% end %>
+        <li class="nav-item mx-1 dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'users') %> Community</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/forums"><%= icon('fas', 'university') %> Forums</a>
+            <a class="dropdown-item" href="/groups"><%= icon('fas', 'users') %> Groups</a>
+            <a class="dropdown-item" href="https://discord.gg/mangadex" target="_blank" rel="nofollow"><%= icon('fab', 'discord') %> Discord</a>
+            <a class="dropdown-item" href="https://twitter.com/MangaDex" target="_blank" rel="nofollow"><%= icon('fab', 'twitter') %> Twitter</a>
+            <a class="dropdown-item" href="https://www.reddit.com/r/mangadex" target="_blank" rel="nofollow"><%= icon('fab', 'reddit') %> Reddit</a>
+            <a class="dropdown-item" href="https://mangadexofficial.tumblr.com/" target="_blank" rel="nofollow"><%= icon('fab', 'tumblr') %> Tumblr</a>
+            <a class="dropdown-item" href="https://github.com/lunaisnotaboy/mangadex" target="_blank" rel="nofollow"><%= icon('fab', 'github') %> GitHub</a>
+            <a class="dropdown-item" href="irc://irc.rizon.net/mangadex" rel="nofollow"><%= icon('fas', 'hashtag') %> IRC</a>
+          </div>
+        </li>
+        <li class="nav-item mx-1 dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'info-circle') %> Info</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/stats"><%= icon('fas', 'clipboard-list') %> Stats</a>
+            <a class="dropdown-item" href="/rules"><%= icon('fas', 'list') %> Rules</a>
+            <a class="dropdown-item" href="<%= about_path %>"><%= icon('fas', 'info') %> About</a>
+            <a class="dropdown-item" href="/changelog"><%= icon('fas', 'code') %> Changelog</a>
+            <a class="dropdown-item" href="/support/affiliates"><%= icon('far', 'handshake') %> Affiliates</a>
+            <a class="dropdown-item" href="/title/30461/bocchi-sensei-teach-me-mangadex"><%= icon('fas', 'question') %> Tutorial</a>
+          </div>
+        </li>
+      </ul>
+      <form id="quick_search_form" method="get" action="/quick_search" role="search" class="form-inline mx-1 quick-search">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <select class="form-control" id="quick_search_type" name="type">
+              <option value="all">All</option>
+              <option selected value="titles">Manga</option>
+              <option value="groups">Groups</option>
+              <option value="users">Users</option>
+            </select>
+          </div>
+          <input type="text" class="form-control" placeholder="Quick search" name="term" id="quick_search_input" required>
+          <span class="input-group-append">
+            <button class="btn btn-secondary" type="submit" id="quick_search_button" name="submit"><%= icon('fas', 'search') %></button>
+          </span>
+        </div>
+      </form>
+      <ul class="navbar-nav">
+        <li class="d-none d-lg-block nav-item mx-1" id="homepage_cog">
+          <a class="nav-link" href="#" title="Settings" data-toggle="modal" data-target="#homepage_settings_modal"><%= icon('fas', 'cog') %></a>
+        </li>
+        <li class="nav-item mx-1 dropdown">
+          <a href="<%= (user_signed_in? == true) ? "/user/#{current_user.id}/#{current_user.username}" : "#" %>" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <%= (user_signed_in? == false) ? icon('fas', 'user-times') : icon('fas', 'user') %>
+            <span class="d-lg-none d-xl-inline" style="color: #<%= session[:level_colour] || '000' %>"><%# (user_signed_in? == false) ? 'Guest' : current_user.username %></span>
+            <%# (@unread_pms != 0) ? icon('fas', 'envelope') : '' %>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if user_signed_in? == false %>
+              <a class="dropdown-item" href="<%= login_path %>"><%= icon('fas', 'sign-in-alt') %> Login</a>
+              <a class="dropdown-item" href="<%= signup_path %>"><%= icon('fas', 'pencil-alt') %> Signup</a>
+            <% else %>
+              <% if current_user.admin? %>
+                <a class="dropdown-item" href="/admin"><%= icon('fas', 'user-md') %> Admin</a>
+              <% end %>
+              <% if current_user.mod? %>
+                <a class="dropdown-item" href="/mod"><%= icon('fas', 'user-md') %> Moderation</a>
+              <% end %>
+              <% if current_user.admin? || current_user.mod? %>
+                <a class="dropdown-item" href="/pr"><%= icon('fas', 'user-md') %> Public Relations</a>
+                <div class="dropdown-divider"></div>
+              <% end %>
+              <a class="dropdown-item" href="/user/<%= "#{current_user.id}/#{current_user.username}" %>">
+                <%= icon('fas', 'user') %> Profile
+              </a>
+              <a class="dropdown-item" href="/history"><%= icon('fas', 'history') %> History</a>
+              <a class="dropdown-item" href="/settings"><%= icon('fas', 'cog') %> Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/list/<%= current_user.id %>"><%= icon('fas', 'list') %> MDList</a>
+              <a class="dropdown-item" href="/social"><%= icon('fas', 'user-friends') %> Social <%# $friend_requests ? "<span class='badge badge-success'>$friend_requests</span>" : '' %></a>
+              <a class="dropdown-item" href="/messages/notifications"><%= icon('fas', 'exclamation-circle') %> Notifications <%# ($unread_notifications) ? "<span class='badge badge-info'>$unread_notifications</span>" : '' %></a>
+              <a class="dropdown-item" href="/messages/inbox"><%= icon('fas', 'envelope') %> Inbox <%# ($unread_pms) ? "<span class='badge badge-danger'>$unread_pms</span>" : '' %></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/support"><%= icon('fas', 'dollar-sign') %> Support</a>
+              <a class="dropdown-item" href="/md_at_home"><%= icon('fas', 'network-wired') %> MD@Home</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item logout" href="<%= destroy_user_session_path %>"><%= icon('fas', 'sign-out-alt') %> Logout</a>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

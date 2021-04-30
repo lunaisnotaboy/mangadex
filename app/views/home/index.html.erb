@@ -1,2 +1,88 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card mb-3">
+      <h6 class="card-header text-center"><%= icon('fas', 'external-link-alt') %> <a href="/updates">Latest updates</a></h6>
+      <div class="card-header p-0">
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li class="nav-item"><a class="nav-link active" href="#latest_update" aria-controls="latest_update" data-toggle="tab">All</a></li>
+          <li class="nav-item"><a class="nav-link" href="#follows_update" aria-controls="follows_update" data-toggle="tab">Follows</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="latest_update"><%# display_latest_updates($templateVar['latest_updates'], $templateVar['user']->latest_updates) %></div>
+        <div role="tabpanel" class="tab-pane" id="follows_update"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <% if current_user.try(:supporter?) == false %>
+      <div class="card mb-3 border-success">
+        <h6 class="card-header text-center text-success border-success border-bottom">MangaDex@Home Update</h6>
+        <div class="card-body text-center text-success">
+          We are looking for more people to host a MD@H client to improve the <a href="https://mangadex.network/" target="_blank">MangaDex Network</a>! It is now possible to run a client without any knowledge of server management or running a Java program. Please <a href="/md_at_home/info">check this out</a> if you're interested.
+        </div>
+      </div>
+    <% end %>
+    <div class="card mb-3">
+      <h6 class="card-header text-center"><%= icon('fas', 'external-link-alt') %> <a href="/stats/top">Top chapters</a></h6>
+      <div class="card-header p-0">
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li title="Updates every 20 minutes" class="nav-item"><a class="nav-link active" href="#six_hours" aria-controls="six_hours" data-toggle="tab">6h</a></li>
+          <li title="Updates every hour" class="nav-item"><a class="nav-link" href="#day" aria-controls="day" data-toggle="tab">24h</a></li>
+          <li title="Updates every 2 hours" class="nav-item"><a class="nav-link" href="#week" aria-controls="week" data-toggle="tab">7d</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="six_hours"><%# display_top_list($templateVar['top_chapters_6h']) %></div>
+        <div role="tabpanel" class="tab-pane" id="day"><%# display_top_list($templateVar['top_chapters_24h']) %></div>
+        <div role="tabpanel" class="tab-pane" id="week"><%# display_top_list($templateVar['top_chapters_7d']) %></div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <h6 class="card-header text-center">Links</h6>
+      <div class="card-body p-0">
+        <div class="row ml-0 mr-0 social-media-btns">
+          <div class="col-4 col-sm-2 col-lg-4 col-xl-2"><a title="@Mangadex on Twitter" href="https://twitter.com/MangaDex" target="_blank">Twitter</a></div>
+          <div class="col-4 col-sm-2 col-lg-4 col-xl-2"><a title="/r/mangadex on Reddit" href="https://www.reddit.com/r/mangadex/" target="_blank">Reddit</a></div>
+          <div class="col-4 col-sm-2 col-lg-4 col-xl-2"><a title="Mangadex on Discord" href="https://discord.gg/mangadex" target="_blank">Discord</a></div>
+          <div class="col-4 col-sm-2 col-lg-4 col-xl-2"><a title="Mangadex Scanlation Bloghosting" href="https://mangadex.com/2018/09/17/hello-world/" target="_blank">Wordpress</a></div>
+          <div class="col-4 col-sm-2 col-lg-4 col-xl-2"><a title="mangadex on tumblr" href="https://mangadexofficial.tumblr.com/" target="_blank">Tumblr</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <h6 class="card-header text-center">News</h6>
+      <%# display_latest_posts($templateVar['latest_news_posts']) %>
+    </div>
+    <div class="card mb-3">
+      <h6 class="card-header text-center"><%= icon('fas', 'external-link-alt') %> <a href="/history">Reading history</a></h6>
+      <%# display_reading_history($templateVar['user']) %>
+    </div>
+    <div class="card mb-3">
+      <h6 class="card-header text-center">Top manga</h6>
+      <div class="card-header p-0">
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li class="nav-item"><a class="nav-link active" href="#top_follows" aria-controls="top_follows" data-toggle="tab">Follows</a></li>
+          <li class="nav-item"><a class="nav-link" href="#top_rating" aria-controls="top_rating" data-toggle="tab">Rating</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="top_follows"><%# display_top_list($templateVar['top_follows'], 'top_follows') %></div>
+          <div role="tabpanel" class="tab-pane" id="top_rating"><%# display_top_list($templateVar['top_rating'], 'top_rating') %></div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <h6 class="card-header text-center">Latest posts</h6>
+      <div class="card-header p-0">
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li class="nav-item"><a class="nav-link active" href="#forum_posts" aria-controls="six_hours" data-toggle="tab">Forums</a></li>
+          <li class="nav-item"><a class="nav-link" href="#manga_posts" aria-controls="day" data-toggle="tab">Manga</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="forum_posts"><%# display_latest_posts($templateVar['latest_forum_posts']) %></div>
+          <div role="tabpanel" class="tab-pane" id="manga_posts"><%# display_latest_comments($templateVar['latest_manga_comments'], 'manga') %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

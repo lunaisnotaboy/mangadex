@@ -4,20 +4,15 @@
 // that code so it'll be compiled.
 
 import Rails from '@rails/ujs';
-import Turbolinks from 'turbolinks';
 import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
-import 'bootstrap';
 import 'bootstrap-select';
-import 'popper.js';
-import 'jquery';
 import 'owl.carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'lightbox2';
 import 'lightbox2/src/css/lightbox2.css';
 
 Rails.start();
-Turbolinks.start();
 ActiveStorage.start();
 
 require.context('../images', true)

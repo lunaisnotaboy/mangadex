@@ -10,4 +10,16 @@ module ApplicationHelper
     html << ' ' << text.to_s unless text.blank?
     html
   end
+
+  def current_page(page_name)
+    if @page == page_name
+      "active"
+    else
+      ""
+    end
+  end
+
+  def display_alert(type, strong, text)
+    "<div class=\"alert alert-#{type} text-center\" role=\"alert\"><strong>#{strong}:</strong> #{text}</div>".html_safe
+  end
 end
