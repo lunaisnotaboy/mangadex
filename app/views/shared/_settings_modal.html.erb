@@ -1,0 +1,26 @@
+<div class="modal fade" id="homepage_settings_modal" tabindex="-1" role="dialog" aria-labelledby="homepage_settings_label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="homepage_settings_label"><%= icon('fas', 'cog') %> MangaDex settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="homepage_settings_form">
+          <div class="form-group row">
+            <label for="language" class="col-lg-3 col-form-label-modal">Site theme:</label>
+            <div class="col-lg-9">
+              <select class="form-control selectpicker" id="theme_id" name="theme_id">
+                <option <%= session[:current_theme].nil? ? 'selected' : '' %> value="light">Light</option>
+                <option <%= session[:current_theme] == 'light-slate' ? 'selected' : nil %> value="light-slate">Light (Slate)</option>
+                <option <%= session[:current_theme] == 'light-bronze' ? 'selected' : nil %> value="light-bronze">Light (Bronze)</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

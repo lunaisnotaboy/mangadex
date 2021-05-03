@@ -1,0 +1,35 @@
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<%# The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags %>
+
+<%# CSRF tags %>
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+
+<%# Robots tag %>
+<meta name="robots" content="index,follow" />
+
+<%# Info Meta Tags %>
+<meta name="author" content="MangaDex" />
+<meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
+<meta name="keywords" itemprop="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : 'MangaDex, Manga Dex, Manga, Read Manga, Manga Online, Read Manga Free, Manga Scans, Free Manga, Read Manga Online' %>" />
+
+<%# Theme colour %>
+<meta name="theme-color" content="#<%= session[:user_style] == 1 ? 'eeeeee' : '272b30' %>" />
+
+<%# OG Data/Twitter Data %>
+<meta property="og:site_name" content="<%= content_for?(:site_name) ? yield(:site_name) : 'MangaDex' %>" />
+<meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'Read scanlations online for free!' %>" />
+<meta property="og:image" content="<%= "#{request.base_url}" %><%= asset_pack_path 'media/images/misc/default_brand.png' %>" />
+<meta property="og:url" content="<%= "#{request.url}" %>" />
+<meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
+<meta property="og:type" content="website" />
+<meta name="twitter:site" content="@mangadex" />
+
+<%# Username meta tag %>
+<% if user_signed_in? %>
+  <meta property="username" content="<%= current_user.username %>" />
+<% end %>
+
+<meta property="software" content="lunaisnotaboy/mangadex @ commit <%= current_commit %>">

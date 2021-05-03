@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  alt_titles: MyText
+  description: MyText
+  artist: MyString
+  author: MyString
+  language: MyString
+  hentai: false
+  links: MyText
+  views: 1
+  last_updated: 2021-04-30 14:49:33
+  cover: 
+
+two:
+  title: MyString
+  alt_titles: MyText
+  description: MyText
+  artist: MyString
+  author: MyString
+  language: MyString
+  hentai: false
+  links: MyText
+  views: 1
+  last_updated: 2021-04-30 14:49:33
+  cover: 

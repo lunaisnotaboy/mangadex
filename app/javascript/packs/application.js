@@ -6,13 +6,11 @@
 import Rails from '@rails/ujs';
 import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
-import 'bootstrap-select';
 import 'owl.carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'lightbox2';
-import 'lightbox2/src/css/lightbox2.css';
 
 Rails.start();
 ActiveStorage.start();
 
-require.context('../images', true)
+const images = require.context('../images/', true)
+const imagePath = (name) => images(name, true)

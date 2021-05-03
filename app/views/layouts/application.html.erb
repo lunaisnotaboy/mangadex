@@ -1,48 +1,34 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <%# The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags %>
-    <meta name="robots" content="index,follow" />
-    <meta name="author" content="MangaDex" />
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
-    <meta name="keywords" itemprop="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : 'mangadex,manga,scanlations' %>" />
-
-    <meta name="theme-color" content="#<%= session[:user_style] == 1 ? 'eeeeee' : '272b30' %>" />
-
-    <meta property="og:site_name" content="<%= content_for?(:site_name) ? yield(:site_name) : 'MangaDex' %>" />
-    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'Read scanlations online for free!' %>" />
-    <meta property="og:image" content="<%= content_for?(:image) ? yield(:image) : '' %>" />
-    <meta property="og:url" content="<%= "#{request.url}" %>" />
-    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' %>" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:site" content="@mangadex" />
+    <%= render partial: 'layouts/meta_tags' %>
 
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
     <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
     <link rel="search" type="application/opensearchdescription+xml" title="MangaDex Quick Search" href="/opensearch.xml">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <%# First Bootstrap/Bootstrap Select, then main application overrides, then custom themes %>
+    <%= stylesheet_pack_tag 'bootstrap' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% if session[:current_theme].nil? %>
+      <%= stylesheet_pack_tag 'light' %>
+    <% end %>
 
     <% if @chapter.present? %>
       <meta name="app" content="MangaDex" data-guest="<%= user_signed_in? ? 0 : 1 %>" data-chapter-id="<%= content_for?(:page_id) ? yield(:page_id) : '' %>" data-page="<%= content_for?(:p) ? yield(:p) : 1 %>" />
       <%= stylesheet_pack_tag 'reader' %>
     <% end %>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'bootstrap' %>
   </head>
 
   <body>
     <%= render partial: 'shared/navbar' %>
     <div class="container" role="main" id="content">
-      <% if @annoucement.present? == true %>
+      <% if @annoucement.present? %>
         <div id="announcement" class="alert alert-success <%= user_signed_in? ? 'alert-dismissible ' : '' %>fade show text-center" role="alert">
           <% if user_signed_in? %>
             <button id="read_announcement_button" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -50,35 +36,17 @@
           <strong>Announcement (<%= @annoucement_date || DateTime.current %>):</strong> <%= @annoucement_thread_name || 'Testing' %> <a title="Go to forum thread" href="/thread/<%= @annoucement_thread_id || '1' %>"><%= icon('fas', 'external-link-alt') %></a>
         </div>
       <% end %>
+      <% if Rails.env.development? %>
+        <div id="announcement" class="alert alert-warning fade show text-center" role="alert">
+          <strong>Warning!</strong> MangaDex is currently in Development mode. This means that things may break <strong>at any time</strong>!!! (Current commit: <%= current_commit %>)
+        </div>
+      <% end %>
       <%= yield %>
     </div>
     <div id="message_container" class="display-none"></div>
-    <div class="modal fade" id="homepage_settings_modal" tabindex="-1" role="dialog" aria-labelledby="homepage_settings_label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="homepage_settings_label"><%= icon('fas', 'cog') %> MangaDex settings</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form method="post" id="homepage_settings_form">
-              <div class="form-group row">
-                <label for="language" class="col-lg-3 col-form-label-modal">Site theme:</label>
-                <div class="col-lg-9">
-                  <select class="form-control selectpicker" id="theme_id" name="theme_id"></select>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'shared/settings_modal' %>
     <footer class="footer">
-      <p class="m-0 text-center text-muted">&copy; 2021 <a href="<%= root_url %>" title="<%= request.host %>">MangaDex</a> | <a href="https://path.net/" target="_blank" title="Provider of DDoS mitigation services">Path Network</a> | <a href="https://sdbx.moe/" target="_blank" title="seedbox provider">sdbx.moe</a> | <a href="https://ddos-guard.net?affiliate=119953" target="_blank" title="ddos-guard">DDoS Protection by DDoS-GUARD</a> | <a href="https://onramper.com/" target="_blank" title="Crypto Widget">Onramper</a></p>
+      <p class="m-0 text-center text-muted">&copy; <%= Time.now.year.to_s %> <a href="<%= root_url %>" title="<%= request.host %>">MangaDex</a> | <a href="https://path.net/" target="_blank" title="Provider of DDoS mitigation services">Path Network</a> | <a href="https://sdbx.moe/" target="_blank" title="seedbox provider">sdbx.moe</a> | <a href="https://ddos-guard.net?affiliate=119953" target="_blank" title="ddos-guard">DDoS Protection by DDoS-GUARD</a> | <a href="https://onramper.com/" target="_blank" title="Crypto Widget">Onramper</a></p>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
   </body>
 </html>
