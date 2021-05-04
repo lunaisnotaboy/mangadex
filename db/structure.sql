@@ -28,74 +28,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.active_storage_attachments (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    record_type character varying NOT NULL,
-    record_id bigint NOT NULL,
-    blob_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.active_storage_attachments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
-
-
---
--- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.active_storage_blobs (
-    id bigint NOT NULL,
-    key character varying NOT NULL,
-    filename character varying NOT NULL,
-    content_type character varying,
-    metadata text,
-    byte_size bigint NOT NULL,
-    checksum character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.active_storage_blobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
-
-
---
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -157,7 +89,8 @@ CREATE TABLE public.mangas (
     author character varying DEFAULT ''::character varying NOT NULL,
     language character varying DEFAULT 'ja_JP'::character varying NOT NULL,
     hentai boolean DEFAULT false NOT NULL,
-    links text DEFAULT '[]'::text,
+    links text[] DEFAULT '{}'::text[],
+    views integer DEFAULT 0 NOT NULL,
     last_updated timestamp without time zone,
     cover text,
     created_at timestamp(6) without time zone NOT NULL,
@@ -258,13 +191,14 @@ CREATE TABLE public.users (
     notify_when_updated boolean DEFAULT true NOT NULL,
     show_moderated_posts boolean DEFAULT false NOT NULL,
     show_unavailable_chpaters boolean DEFAULT false NOT NULL,
-    shown_chapter_langs character varying DEFAULT 'en_US'::character varying NOT NULL,
-    excluded_tags text DEFAULT ''::text NOT NULL,
     sign_in_count integer DEFAULT 0 NOT NULL,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip inet,
-    last_sign_in_ip inet
+    last_sign_in_ip inet,
+    theme character varying DEFAULT 'light'::character varying NOT NULL,
+    excluded_tags text[] DEFAULT '{}'::text[],
+    shown_chapter_langs text[] DEFAULT '{en_US}'::text[]
 );
 
 
@@ -322,20 +256,6 @@ ALTER SEQUENCE public.views_id_seq OWNED BY public.views.id;
 
 
 --
--- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
-
-
---
--- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
-
-
---
 -- Name: chapters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -368,22 +288,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.views ALTER COLUMN id SET DEFAULT nextval('public.views_id_seq'::regclass);
-
-
---
--- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments
-    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
-
-
---
--- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_blobs
-    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -440,27 +344,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.views
     ADD CONSTRAINT views_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
-
-
---
--- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
-
-
---
--- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
 
 
 --
@@ -573,14 +456,6 @@ ALTER TABLE ONLY public.chapters
 
 
 --
--- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments
-    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
-
-
---
 -- Name: views fk_rails_c8ee5b9714; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -602,7 +477,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210429191208'),
 ('20210429191904'),
 ('20210430135933'),
-('20210430144933'),
 ('20210430145245'),
 ('20210430152548'),
 ('20210430180041'),
@@ -614,11 +488,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210430184228'),
 ('20210430184600'),
 ('20210430184739'),
-('20210430184908'),
-('20210430185031'),
 ('20210504143828'),
 ('20210504172047'),
 ('20210504172635'),
-('20210504173528');
+('20210504173528'),
+('20210504182737'),
+('20210504191000'),
+('20210504191242');
 
 
