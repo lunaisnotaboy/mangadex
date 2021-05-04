@@ -4,8 +4,10 @@ What a reimplementation of MangaDex using Ruby on Rails could look like.
 
 ## Prerequisites
 
-- Redis
 - Ruby 2.7.3
+- Redis
+- bash
+- PostgreSQL
 - Linux (sorry, Windows)
 
 ## Setup
