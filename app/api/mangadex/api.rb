@@ -51,7 +51,7 @@ module MangaDex
       route_param :id do
         get do
           User.find_by(id: params[:id]).attributes.slice('id', 'username', 'admin', 'mod', 'public_relations',
-                                                         'created_at', 'website', 'bio', 'supporter', 'md_at_home', 'avatar')
+                                                         'created_at', 'last_sign_in_at', 'website', 'bio', 'supporter', 'md_at_home', 'avatar')
         end
 
         desc 'Get partial information about the chapters uploaded by the user.'

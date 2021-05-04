@@ -261,7 +261,12 @@ CREATE TABLE public.users (
     show_moderated_posts boolean DEFAULT false NOT NULL,
     show_unavailable_chpaters boolean DEFAULT false NOT NULL,
     shown_chapter_langs character varying DEFAULT 'en_US'::character varying NOT NULL,
-    excluded_tags text DEFAULT ''::text NOT NULL
+    excluded_tags text DEFAULT ''::text NOT NULL,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet
 );
 
 
@@ -518,6 +523,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210430184600'),
 ('20210430184739'),
 ('20210430184908'),
-('20210430185031');
+('20210430185031'),
+('20210504143828');
 
 
