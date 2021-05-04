@@ -35,4 +35,8 @@ module ApplicationHelper
   def current_commit_full
     ENV['CURRENT_COMMIT_LONG'].to_s
   end
+
+  def github_url
+    "https://github.com/lunaisnotaboy/mangadex/tree/#{current_commit_full}"
+  end
 end
