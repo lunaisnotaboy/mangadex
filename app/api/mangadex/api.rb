@@ -72,6 +72,6 @@ module MangaDex
     end
 
     add_swagger_documentation info: { title: 'MangaDex', description: 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' },
-                              doc_version: 'v5.0-rails'
+                              doc_version: `git rev-list HEAD --max-count=1 --abbrev-commit`.strip
   end
 end
