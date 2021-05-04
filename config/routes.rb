@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
   devise_scope :user do
     get '/password_reset', to: 'devise/passwords#new'
@@ -8,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   get '/rules', to: 'rules#index'
 

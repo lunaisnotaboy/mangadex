@@ -62,7 +62,7 @@ module MangaDex
         desc 'Get a user\'s website settings.'
         get :settings do
           error!('You are not authenticated.', 403) unless authenticated?
-          
+
           User.find_by(id: params[:id]).attributes.slice('id', 'view_hentai', 'notify_when_updated',
                                                          'show_moderated_posts', 'show_unavailable_chapters', 'shown_chapter_langs', 'excluded_tags')
         end

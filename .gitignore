@@ -43,3 +43,10 @@ yarn-debug.log*
 
 # redis
 dump.rdb
+
+# env files
+/.env
+/.env.*
+
+# ignore example .env file
+!/.env.example

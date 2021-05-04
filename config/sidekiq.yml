@@ -1,0 +1,4 @@
+:schedule:
+  top_six_hours:
+    cron: '*/20 * * * *'
+    class: TopSixHoursWorker

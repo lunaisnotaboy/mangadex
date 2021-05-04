@@ -2,9 +2,15 @@
 
 What a reimplementation of MangaDex using Ruby on Rails could look like.
 
+## Prerequisites
+
+- Redis
+- Ruby 2.7.3
+- Linux (sorry, Windows)
+
 ## Setup
 
-Run `script/setup` and then just run `script/server`.
+Copy `.env.example` to `.env.development`, run `script/setup` and then just run `script/server`.
 
 To update, just run `script/update`, though `script/server` runs this each time it
 starts.
