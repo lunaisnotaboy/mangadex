@@ -9,8 +9,13 @@
         </ul>
       </div>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="latest_update"><%# display_latest_updates($templateVar['latest_updates'], $templateVar['user']->latest_updates) %></div>
-        <div role="tabpanel" class="tab-pane" id="follows_update"></div>
+        <div role="tabpanel" class="tab-pane active" id="latest_update">
+          <%# display_latest_updates($templateVar['latest_updates'], $templateVar['user']->latest_updates) %>
+          <%= display_alert('info m-2', 'Notice', 'No updates!') %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="follows_update">
+          <%= display_alert('info m-2', 'Notice', "Please #{icon('fas', 'sign-in-alt')} <a href=\"/login\">login</a> to see updates from your follows.") %>
+        </div>
       </div>
     </div>
   </div>
@@ -33,9 +38,24 @@
         </ul>
       </div>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="six_hours"><%# display_top_list($templateVar['top_chapters_6h']) %></div>
-        <div role="tabpanel" class="tab-pane" id="day"><%# display_top_list($templateVar['top_chapters_24h']) %></div>
-        <div role="tabpanel" class="tab-pane" id="week"><%# display_top_list($templateVar['top_chapters_7d']) %></div>
+        <div role="tabpanel" class="tab-pane active" id="six_hours">
+          <%# display_top_list($templateVar['top_chapters_6h']) %>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-2 py-1"><strong>No manga to display.</strong></li>
+          </ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="day">
+          <%# display_top_list($templateVar['top_chapters_24h']) %>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-2 py-1"><strong>No manga to display.</strong></li>
+          </ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="week">
+          <%# display_top_list($templateVar['top_chapters_7d']) %>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-2 py-1"><strong>No manga to display.</strong></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="card mb-3">
@@ -54,10 +74,14 @@
     <div class="card mb-3">
       <h6 class="card-header text-center">News</h6>
       <%# display_latest_posts($templateVar['latest_news_posts']) %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item px-2 py-1"><strong>No posts to display.</strong></li>
+      </ul>
     </div>
     <div class="card mb-3">
       <h6 class="card-header text-center"><%= icon('fas', 'external-link-alt') %> <a href="/history">Reading history</a></h6>
       <%# display_reading_history($templateVar['user']) %>
+      <%= display_alert('info m-2', 'Notice', "Please #{icon('fas', 'sign-in-alt')} <a href=\"/login\">log in</a> to view your reading history.") %>
     </div>
     <div class="card mb-3">
       <h6 class="card-header text-center">Top manga</h6>
@@ -67,8 +91,18 @@
           <li class="nav-item"><a class="nav-link" href="#top_rating" aria-controls="top_rating" data-toggle="tab">Rating</a></li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="top_follows"><%# display_top_list($templateVar['top_follows'], 'top_follows') %></div>
-          <div role="tabpanel" class="tab-pane" id="top_rating"><%# display_top_list($templateVar['top_rating'], 'top_rating') %></div>
+          <div role="tabpanel" class="tab-pane active" id="top_follows">
+            <%# display_top_list($templateVar['top_follows'], 'top_follows') %>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-2 py-1"><strong>No manga to display.</strong></li>
+            </ul>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="top_rating">
+            <%# display_top_list($templateVar['top_rating'], 'top_rating') %>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-2 py-1"><strong>No manga to display.</strong></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -80,8 +114,18 @@
           <li class="nav-item"><a class="nav-link" href="#manga_posts" aria-controls="day" data-toggle="tab">Manga</a></li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="forum_posts"><%# display_latest_posts($templateVar['latest_forum_posts']) %></div>
-          <div role="tabpanel" class="tab-pane" id="manga_posts"><%# display_latest_comments($templateVar['latest_manga_comments'], 'manga') %></div>
+          <div role="tabpanel" class="tab-pane active" id="forum_posts">
+            <%# display_latest_posts($templateVar['latest_forum_posts']) %>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-2 py-1"><strong>No posts to display.</strong></li>
+            </ul>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="manga_posts">
+            <%# display_latest_comments($templateVar['latest_manga_comments'], 'manga') %>
+            <ul class="list-group list-group-flush">
+              <li class='list-group-item px-2 py-1'><strong>No comments to display.</strong></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -71,6 +71,7 @@ module MangaDex
       end
     end
 
-    add_swagger_documentation info: { title: 'MangaDex' }, doc_version: 'v5.0-rails'
+    add_swagger_documentation info: { title: 'MangaDex', description: 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' },
+                              doc_version: 'v5.0-rails'
   end
 end
