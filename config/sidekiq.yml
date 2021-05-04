@@ -4,7 +4,7 @@
     class: TopSixHoursWorker
   top_twenty_four_hours:
     cron: '0 * * * *'
-    class: TopTwentyFourHours
+    class: TopTwentyFourHoursWorker
   top_seven_days:
     cron: '0 0 * * 0'
-    class: TopSevenDays
+    class: TopSevenDaysWorker
