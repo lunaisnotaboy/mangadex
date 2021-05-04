@@ -6,6 +6,6 @@ class TopSixHoursWorker
   include Sidekiq::Worker
 
   def perform(*_args)
-    puts 'Hello, world!'
+    puts 'Brian David Gilbert lives free in my head'
   end
 end

@@ -28,4 +28,5 @@ class User < ApplicationRecord
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }
 
   has_many :chapters
+  has_many :views
 end

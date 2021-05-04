@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Chapter < ApplicationRecord
+class View < ApplicationRecord
   belongs_to :mangas
+  belongs_to :chapters
   belongs_to :users
-  has_many :views
 end

@@ -120,7 +120,6 @@ CREATE TABLE public.chapters (
     title character varying DEFAULT ''::character varying NOT NULL,
     language character varying DEFAULT 'ja_JP'::character varying NOT NULL,
     users_id bigint,
-    views integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -159,7 +158,6 @@ CREATE TABLE public.mangas (
     language character varying DEFAULT 'ja_JP'::character varying NOT NULL,
     hentai boolean DEFAULT false NOT NULL,
     links text DEFAULT '[]'::text,
-    views integer DEFAULT 0 NOT NULL,
     last_updated timestamp without time zone,
     cover text,
     created_at timestamp(6) without time zone NOT NULL,
@@ -290,6 +288,40 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: views; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.views (
+    id bigint NOT NULL,
+    type text[] DEFAULT '{}'::text[],
+    users_id bigint,
+    mangas_id bigint,
+    chapters_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: views_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.views_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: views_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.views_id_seq OWNED BY public.views.id;
+
+
+--
 -- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -329,6 +361,13 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: views id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.views ALTER COLUMN id SET DEFAULT nextval('public.views_id_seq'::regclass);
 
 
 --
@@ -393,6 +432,14 @@ ALTER TABLE ONLY public.sessions
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: views views_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.views
+    ADD CONSTRAINT views_pkey PRIMARY KEY (id);
 
 
 --
@@ -473,11 +520,48 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 
 
 --
+-- Name: index_views_on_chapters_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_views_on_chapters_id ON public.views USING btree (chapters_id);
+
+
+--
+-- Name: index_views_on_mangas_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_views_on_mangas_id ON public.views USING btree (mangas_id);
+
+
+--
+-- Name: index_views_on_users_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_views_on_users_id ON public.views USING btree (users_id);
+
+
+--
+-- Name: views fk_rails_2f590364ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.views
+    ADD CONSTRAINT fk_rails_2f590364ee FOREIGN KEY (chapters_id) REFERENCES public.chapters(id);
+
+
+--
 -- Name: chapters fk_rails_850a7529ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chapters
     ADD CONSTRAINT fk_rails_850a7529ef FOREIGN KEY (mangas_id) REFERENCES public.mangas(id);
+
+
+--
+-- Name: views fk_rails_abec7bceb1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.views
+    ADD CONSTRAINT fk_rails_abec7bceb1 FOREIGN KEY (mangas_id) REFERENCES public.mangas(id);
 
 
 --
@@ -494,6 +578,14 @@ ALTER TABLE ONLY public.chapters
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: views fk_rails_c8ee5b9714; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.views
+    ADD CONSTRAINT fk_rails_c8ee5b9714 FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --
@@ -524,6 +616,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210430184739'),
 ('20210430184908'),
 ('20210430185031'),
-('20210504143828');
+('20210504143828'),
+('20210504172047'),
+('20210504172635'),
+('20210504173528');
 
 

@@ -2,3 +2,9 @@
   top_six_hours:
     cron: '*/20 * * * *'
     class: TopSixHoursWorker
+  top_twenty_four_hours:
+    cron: '0 * * * *'
+    class: TopTwentyFourHours
+  top_seven_days:
+    cron: '0 0 * * 0'
+    class: TopSevenDays
