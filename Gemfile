@@ -39,6 +39,8 @@ gem 'sidekiq-scheduler', '~> 3.0'
 
 gem 'redis', '~> 4.2'
 
+gem 'grape-swagger'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

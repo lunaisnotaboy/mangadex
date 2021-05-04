@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'grape-swagger'
+
 module MangaDex
   class API < Grape::API
     version 'v5', using: :path, vendor: 'mangadex'
@@ -59,7 +61,7 @@ module MangaDex
           Chapter.find_by(users_id: params[:id])
         end
 
-        desc 'Get a user\'s website settings.'
+        desc 'Get a user\'s website settings. (Authentication required)'
         get :settings do
           error!('You are not authenticated.', 403) unless authenticated?
 
@@ -68,5 +70,7 @@ module MangaDex
         end
       end
     end
+
+    add_swagger_documentation info: { title: 'MangaDex' }, doc_version: 'v5.0-rails'
   end
 end

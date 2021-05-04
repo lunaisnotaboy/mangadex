@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  get '/developers', to: 'docs#index'
+
   get '/rules', to: 'rules#index'
 
   get '/stats', to: 'stats#show'
