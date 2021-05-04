@@ -29,6 +29,10 @@ module ApplicationHelper
   end
 
   def current_commit
-    `git rev-list HEAD --max-count=1 --abbrev-commit`.strip
+    ENV['CURRENT_COMMIT'].to_s
+  end
+
+  def current_commit_full
+    ENV['CURRENT_COMMIT_LONG'].to_s
   end
 end
