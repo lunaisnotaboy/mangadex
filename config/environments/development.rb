@@ -55,4 +55,13 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.hosts << ENV["APP_DOMAIN"] unless ENV["APP_DOMAIN"].nil?
+  config.hosts << /[a-z0-9]+\.ngrok\.io/
+  if (gitpod_workspace_url = ENV["GITPOD_WORKSPACE_URL"])
+    config.hosts << /.*#{URI.parse(gitpod_workspace_url).host}/
+  end
+  config.app_domain = ENV["APP_DOMAIN"] || "localhost:3000"
 end
+
+Rails.application.routes.default_url_options = { host: Rails.application.config.app_domain }
