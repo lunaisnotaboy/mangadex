@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get '/admin', to: 'admin#index'
 
     get '/admin/database', to: 'admin#db'
+
+    get '/admin/sidekiq', to: 'admin#sidekiq'
   end
 
   # Route various pages (about, rules, stats, etc.)

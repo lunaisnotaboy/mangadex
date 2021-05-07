@@ -9,6 +9,10 @@ class AdminController < ApplicationController
     @page = 'admin-database'
   end
 
+  def sidekiq
+    @page = 'admin-sidekiq'
+  end
+
   # `def stats` is kept for backwards compatibility
 
   def stats
