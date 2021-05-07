@@ -1,0 +1,35 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-stats') %>" href="/admin/stats" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'chart-line') %> Stats</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link <%= current_page('admin-visits') %> dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><%= icon('far', 'clock') %> Visit logs</a>
+    <div class="dropdown-menu">
+      <a href="/admin/visit_logs/summary" class="dropdown-item <%= current_page('admin-visits-summary') %>">Summary</a>
+      <a href="/admin/visit_logs/recent" class="dropdown-item <%= current_page('admin-visits-recent') %>">Recent</a>
+    </div>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link <%= current_page('admin-ipunban') %> dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'gavel') %> IP</a>
+    <div class="dropdown-menu">
+      <a href="/admin/ip_unban/ip_unban" class="dropdown-item <%= current_page('admin-ipunban') %>">IP Unban</a>
+      <a href="/admin/ip_unban/ip_ban" class="dropdown-item <%= current_page('admin-ipban') %>">IP Banlist</a>
+      <a href="/admin/ip_unban/ip_failtwoban" class="dropdown-item <%= current_page('admin-failtwoban') %>">Fail2Ban Logs</a>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-cachestats') %>" href="/admin/cache_stats" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'memory') %> Cache Stats</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-iptracking') %>" href="/admin/ip_tracking" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'shoe-prints') %> IP Tracking</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-reportreasons') %>" href="/admin/report_reasons" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'gavel') %> Report Reasons</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-tempmail') %>" href="/admin/tempmail" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'at') %> Temp mail</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= current_page('admin-database') %>" href="/admin/database" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'database') %> DBs</a>
+  </li>
+</ul>

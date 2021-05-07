@@ -1,0 +1,14 @@
+<%= render partial: 'admin/navbar' %>
+
+<!--
+  <canvas id="registrations_graph" data-x="<%= users_x %>" data-y="<%= users_y %>"></canvas>
+-->
+
+<div>
+  Total chapter API hits: <%= total_hits.to_s %>
+</div>
+
+<%# The percentage gives a divide by zero error with nothing, so it's commented out until I do seeds %>
+<div>
+  Tachiyomi hits: <%= tachi_hits.to_s %> (<%# mean_hits || 0.to_s %>%)
+</div>

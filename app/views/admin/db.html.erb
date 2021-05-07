@@ -1,0 +1,14 @@
+<%= render partial: 'admin/navbar' %>
+
+<br />
+
+<%# Direct admins to Sentry %>
+<%= display_alert('info', 'Notice', 'Please read!') %>
+
+<div>
+  In the past, MangaDex had all it's monitoring in the admin dashboard. Now, we
+  are slowly trying to move backend error information to
+  <a href="https://sentry.io" title="Sentry">Sentry</a>. Please contact someone
+  if you do not have access to the dashboard. This page will be removed in the
+  next release.
+</div>

@@ -41,6 +41,12 @@ gem 'redis', '~> 4.2'
 
 gem 'grape-swagger'
 
+gem 'sentry-ruby'
+
+gem 'sentry-rails'
+
+gem 'sentry-sidekiq'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -55,6 +61,8 @@ group :development do
   gem 'listen', '~> 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'capistrano', '~> 3.10', require: false
+  gem 'capistrano-rails', '~> 1.3', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

@@ -18,10 +18,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  # Authenticate user, verify admin status, then grant access to Sidekiq dashboard
+  # Authenticate user, verify admin status, then grant access to admin-only URLs
 
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+
+    get '/admin', to: 'admin#index'
+
+    get '/admin/database', to: 'admin#db'
   end
 
   # Route various pages (about, rules, stats, etc.)
@@ -37,6 +41,8 @@ Rails.application.routes.draw do
   # Route redirects
 
   get '/stats/top', to: 'stats#top'
+
+  get '/admin/stats', to: 'admin#stats'
 
   # Root page
 
