@@ -31,28 +31,28 @@
         <li class="nav-item dropdown mx-1">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'book') %> <%= t('navbar.manga') %></a>
           <div class="dropdown-menu">
-            <a class="dropdown-item <%= current_page('titles') %>" href="/titles"><%= icon('fas', 'book') %> Titles</a>
-            <a class="dropdown-item <%= current_page('updates') %>" href="/updates"><%= icon('fas', 'sync') %> Updates</a>
-            <a class="dropdown-item <%= current_page('search') %>" href="/search"><%= icon('fas', 'search') %> Search</a>
-            <a class="dropdown-item <%= current_page('featured') %>" href="/featured"><%= icon('fas', 'tv') %> Featured</a>
+            <a class="dropdown-item <%= current_page('titles') %>" href="/titles"><%= icon('fas', 'book') %> <%= t('navbar.titles') %></a>
+            <a class="dropdown-item <%= current_page('updates') %>" href="/updates"><%= icon('fas', 'sync') %> <%= t('navbar.updates') %></a>
+            <a class="dropdown-item <%= current_page('search') %>" href="/search"><%= icon('fas', 'search') %> <%= t('navbar.search') %></a>
+            <a class="dropdown-item <%= current_page('featured') %>" href="/featured"><%= icon('fas', 'tv') %> <%= t('navbar.featured') %></a>
             <a class="dropdown-item" href="/manga"><%= icon('fas', 'question-circle') %> Random</a>
-            <a class="dropdown-item <%= current_page('manga_new') %>" href="/manga_new"><%= icon('fas', 'plus-circle') %> Add</a>
+            <a class="dropdown-item <%= current_page('manga_new') %>" href="/manga_new"><%= icon('fas', 'plus-circle') %> <%= t('navbar.new_manga') %></a>
           </div>
         </li>
         <% if user_signed_in? != true %>
           <li class="nav-item mx-1" id="login">
-            <a class="nav-link" href="<%= login_path %>" title="You need to log in."><%= icon('fas', 'bookmark') %> Follows</a>
+            <a class="nav-link" href="<%= login_path %>" title="You need to log in."><%= icon('fas', 'bookmark') %> <%= t('navbar.follows') %></a>
           </li>
         <% else %>
           <li class="nav-item mx-1 <%= current_page('follows') %>" id="follows">
-            <a class="nav-link" href="/follows"><%= icon('fas', 'bookmark') %> Follows</a>
+            <a class="nav-link" href="/follows"><%= icon('fas', 'bookmark') %> <%= t('navbar.follows') %></a>
           </li>
         <% end %>
         <li class="nav-item mx-1 dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'users') %> Community</a>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'users') %> <%= t('navbar.community') %></a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/forums"><%= icon('fas', 'university') %> Forums</a>
-            <a class="dropdown-item" href="/groups"><%= icon('fas', 'users') %> Groups</a>
+            <a class="dropdown-item" href="/forums"><%= icon('fas', 'university') %> <%= t('navbar.forums') %></a>
+            <a class="dropdown-item" href="/groups"><%= icon('fas', 'users') %> <%= t('navbar.groups') %></a>
             <a class="dropdown-item" href="https://discord.gg/mangadex" target="_blank" rel="nofollow"><%= icon('fab', 'discord') %> Discord</a>
             <a class="dropdown-item" href="https://twitter.com/MangaDex" target="_blank" rel="nofollow"><%= icon('fab', 'twitter') %> Twitter</a>
             <a class="dropdown-item" href="https://www.reddit.com/r/mangadex" target="_blank" rel="nofollow"><%= icon('fab', 'reddit') %> Reddit</a>
@@ -61,15 +61,15 @@
           </div>
         </li>
         <li class="nav-item mx-1 dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'info-circle') %> Info</a>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= icon('fas', 'info-circle') %> <%= t('navbar.info') %></a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="<%= stats_path %>"><%= icon('fas', 'clipboard-list') %> Stats</a>
-            <a class="dropdown-item" href="<%= rules_path %>"><%= icon('fas', 'list') %> Rules</a>
-            <a class="dropdown-item" href="<%= about_path %>"><%= icon('fas', 'info') %> About</a>
-            <a class="dropdown-item" href="/changelog"><%= icon('fas', 'code') %> Changelog</a>
-            <a class="dropdown-item" href="/developers"><%= icon('fas', 'wrench') %> API Docs</a>
-            <a class="dropdown-item" href="/support/affiliates"><%= icon('far', 'handshake') %> Affiliates</a>
-            <a class="dropdown-item" href="/title/30461/bocchi-sensei-teach-me-mangadex"><%= icon('fas', 'question') %> Tutorial</a>
+            <a class="dropdown-item" href="<%= stats_path %>"><%= icon('fas', 'clipboard-list') %> <%= t('navbar.stats') %></a>
+            <a class="dropdown-item" href="<%= rules_path %>"><%= icon('fas', 'list') %> <%= t('navbar.rules') %></a>
+            <a class="dropdown-item" href="<%= about_path %>"><%= icon('fas', 'info') %> <%= t('navbar.about') %></a>
+            <a class="dropdown-item" href="/changelog"><%= icon('fas', 'code') %> <%= t('navbar.changelog') %></a>
+            <a class="dropdown-item" href="/developers"><%= icon('fas', 'wrench') %> <%= t('navbar.api') %></a>
+            <a class="dropdown-item" href="/support/affiliates"><%= icon('far', 'handshake') %> <%= t('navbar.affiliates') %></a>
+            <a class="dropdown-item" href="/title/30461/bocchi-sensei-teach-me-mangadex"><%= icon('fas', 'question') %> <%= t('navbar.tutorial') %></a>
           </div>
         </li>
       </ul>
@@ -83,7 +83,7 @@
               <option value="users">Users</option>
             </select>
           </div>
-          <input type="text" class="form-control" placeholder="Quick search" name="term" id="quick_search_input" required>
+          <input type="text" class="form-control" placeholder="<%= t('navbar.quick_search') %>" name="term" id="quick_search_input" required>
           <span class="input-group-append">
             <button class="btn btn-secondary" type="submit" id="quick_search_button" name="submit"><%= icon('fas', 'search') %></button>
           </span>
@@ -91,7 +91,7 @@
       </form>
       <ul class="navbar-nav">
         <li class="d-none d-lg-block nav-item mx-1" id="homepage_cog">
-          <a class="nav-link" href="#" title="Settings" data-toggle="modal" data-target="#homepage_settings_modal"><%= icon('fas', 'cog') %></a>
+          <a class="nav-link" href="#" title="<%= t('navbar.settings') %>" data-toggle="modal" data-target="#homepage_settings_modal"><%= icon('fas', 'cog') %></a>
         </li>
         <li class="nav-item mx-1 dropdown">
           <a href="<%= (user_signed_in? == true) ? "/user/#{current_user.id}/#{current_user.username}" : "#" %>" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -101,36 +101,36 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <% if user_signed_in? == false %>
-              <a class="dropdown-item" href="<%= login_path %>"><%= icon('fas', 'sign-in-alt') %> Login</a>
-              <a class="dropdown-item" href="<%= signup_path %>"><%= icon('fas', 'pencil-alt') %> Signup</a>
+              <a class="dropdown-item" href="<%= login_path %>"><%= icon('fas', 'sign-in-alt') %> <%= t('navbar.login') %></a>
+              <a class="dropdown-item" href="<%= signup_path %>"><%= icon('fas', 'pencil-alt') %> <%= t('navbar.signup') %></a>
             <% else %>
               <% if current_user.admin? %>
-                <a class="dropdown-item" href="<%= admin_url %>"><%= icon('fas', 'user-md') %> Admin</a>
+                <a class="dropdown-item" href="<%= admin_url %>"><%= icon('fas', 'user-md') %> <%= t('navbar.admin') %></a>
                 <div class="dropdown-divider"></div>
               <% end %>
               <% if current_user.mod? %>
-                <a class="dropdown-item" href="/mod"><%= icon('fas', 'user-md') %> Moderation</a>
+                <a class="dropdown-item" href="/mod"><%= icon('fas', 'user-md') %> <%= t('navbar.mod') %></a>
                 <div class="dropdown-divider"></div>
               <% end %>
               <% if current_user.public_relations? %>
-                <a class="dropdown-item" href="/pr"><%= icon('fas', 'user-md') %> Public Relations</a>
+                <a class="dropdown-item" href="/pr"><%= icon('fas', 'user-md') %> <%= t('navbar.pr') %></a>
                 <div class="dropdown-divider"></div>
               <% end %>
               <a class="dropdown-item" href="/user/<%= "#{current_user.id}/#{current_user.username}" %>">
-                <%= icon('fas', 'user') %> Profile
+                <%= icon('fas', 'user') %> <%= t('navbar.profile') %>
               </a>
-              <a class="dropdown-item" href="/history"><%= icon('fas', 'history') %> History</a>
-              <a class="dropdown-item" href="/settings"><%= icon('fas', 'cog') %> Settings</a>
+              <a class="dropdown-item" href="/history"><%= icon('fas', 'history') %> <%= t('navbar.history') %></a>
+              <a class="dropdown-item" href="/settings"><%= icon('fas', 'cog') %> <%= t('navbar.settings') %></a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/list/<%= current_user.id %>"><%= icon('fas', 'list') %> MDList</a>
-              <a class="dropdown-item" href="/social"><%= icon('fas', 'user-friends') %> Social <%# $friend_requests ? "<span class='badge badge-success'>$friend_requests</span>" : '' %></a>
-              <a class="dropdown-item" href="/messages/notifications"><%= icon('fas', 'exclamation-circle') %> Notifications <%# ($unread_notifications) ? "<span class='badge badge-info'>$unread_notifications</span>" : '' %></a>
-              <a class="dropdown-item" href="/messages/inbox"><%= icon('fas', 'envelope') %> Inbox <%# ($unread_pms) ? "<span class='badge badge-danger'>$unread_pms</span>" : '' %></a>
+              <a class="dropdown-item" href="/social"><%= icon('fas', 'user-friends') %> <%= t('navbar.social') %> <%# $friend_requests ? "<span class='badge badge-success'>$friend_requests</span>" : '' %></a>
+              <a class="dropdown-item" href="/messages/notifications"><%= icon('fas', 'exclamation-circle') %> <%= t('navbar.notifications') %> <%# ($unread_notifications) ? "<span class='badge badge-info'>$unread_notifications</span>" : '' %></a>
+              <a class="dropdown-item" href="/messages/inbox"><%= icon('fas', 'envelope') %> <%= t('navbar.inbox') %> <%# ($unread_pms) ? "<span class='badge badge-danger'>$unread_pms</span>" : '' %></a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/support"><%= icon('fas', 'dollar-sign') %> Support</a>
+              <a class="dropdown-item" href="/support"><%= icon('fas', 'dollar-sign') %> <%= t('navbar.support') %></a>
               <a class="dropdown-item" href="/md_at_home"><%= icon('fas', 'network-wired') %> MD@Home</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item logout" href="<%= destroy_user_session_path %>"><%= icon('fas', 'sign-out-alt') %> Logout</a>
+              <a class="dropdown-item logout" href="<%= destroy_user_session_path %>"><%= icon('fas', 'sign-out-alt') %> <%= t('navbar.logout') %></a>
             <% end %>
           </div>
         </li>

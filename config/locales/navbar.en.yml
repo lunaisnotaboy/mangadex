@@ -1,3 +1,35 @@
 en:
   navbar:
-    manga: "Manga"
+    manga: Manga
+    titles: Titles
+    updates: Updates
+    search: Search
+    featured: Featured
+    random: Random
+    new_manga: Add
+    follows: Follows
+    community: Community
+    forums: Forums
+    groups: Groups
+    info: Info
+    stats: Stats
+    rules: Rules
+    about: About
+    changelog: Changelog
+    api: API Docs
+    affiliates: Affiliates
+    tutorial: Tutorial
+    quick_search: Quick search
+    settings: Settings
+    admin: Admin
+    mod: Moderation
+    pr: Public Relations
+    profile: Profile
+    history: History
+    social: Social
+    notifications: Notifications
+    inbox: Inbox
+    support: Support
+    logout: Logout
+    login: Login
+    signup: Signup

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
+    <title><%= @page_title || t('mangadex.default_page') %></title>
+
     <%= render partial: 'layouts/meta_tags' %>
 
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
