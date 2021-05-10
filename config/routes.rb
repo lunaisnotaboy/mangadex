@@ -30,6 +30,26 @@ Rails.application.routes.draw do
     get '/admin/sidekiq', to: 'admin#sidekiq'
   end
 
+  authenticate :user do
+    get '/settings', to: 'settings#index'
+
+    get '/settings/profile', to: 'settings#profile'
+
+    get '/settings/site', to: 'settings#site'
+  end
+
+  # Users
+
+  get '/user/:id/:username', to: 'user#show'
+
+  get '/user/:id', to: 'user#show'
+
+  # Manga
+
+  get '/title/:id/:title', to: 'manga#show'
+
+  get '/title/:id', to: 'manga#show'
+
   # Route various pages (about, rules, stats, etc.)
 
   get '/developers', to: 'docs#index'
@@ -53,4 +73,8 @@ Rails.application.routes.draw do
   # Mount API
 
   mount MangaDex::API => '/'
+
+  # Mount endpoints
+
+  mount ImageUploader.derivation_endpoint => '/derivations/image'
 end

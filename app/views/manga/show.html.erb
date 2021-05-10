@@ -1,0 +1,15 @@
+<div class="card mb-3">
+  <h6 class="card-header d-flex align-items-center py-2">
+    <%= icon('fas', 'book') %>
+    <span class="mx-1"><%= @manga.try(:title) || 'Testing' %></span>
+  </h6>
+  <div class="card-body p-0">
+    <div class="row edit">
+      <div class="col-xl-3 col-lg-4 col-md-5">
+        <a href="/title/<%= params[:id].to_i %>/<%= @manga.try(:title).try(:parameterize)  || 'This-Is-A-Test' %>/covers/" title="See covers">
+          <img class="rounded" width="100%" src="<%# "/images/manga/{$templateVar['manga']->manga_id}.{$templateVar['manga']->manga_image}?" . @filemtime(ABS_DATA_BASEPATH . "/manga/{$templateVar['manga']->manga_id}.{$templateVar['manga']->manga_image}") %>" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

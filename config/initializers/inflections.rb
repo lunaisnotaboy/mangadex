@@ -16,4 +16,5 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'API'
   inflect.acronym 'MangaDex'
+  inflect.uncountable 'Manga'
 end

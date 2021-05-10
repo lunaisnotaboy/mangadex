@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include ImageUploader::Attachment(:avatar)
+
   attr_writer :login
 
   # Include default devise modules. Others available are:

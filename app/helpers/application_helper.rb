@@ -39,4 +39,8 @@ module ApplicationHelper
   def github_url
     "https://github.com/lunaisnotaboy/mangadex/tree/#{current_commit_full}"
   end
+
+  def display_avatar(_ext, id, limit = nil)
+    "<img class=\"rounded #{limit.present? ? 'avatar-fit' : 'avatar'} mt-2\" alt=\"Avatar\" src=\"#{User.find(id).avatar_url}\">".html_safe
+  end
 end

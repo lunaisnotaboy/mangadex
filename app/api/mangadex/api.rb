@@ -29,6 +29,11 @@ module MangaDex
     end
 
     resource :manga do
+      desc 'List all Manga.'
+      get do
+        Manga.all.attributes.slice('id', 'username', 'admin', 'mod', 'public_relations',
+                                   'created_at', 'last_sign_in_at', 'website', 'bio', 'supporter', 'md_at_home', 'avatar_data')
+      end
       desc 'Get a manga.'
       params do
         requires :id, type: Integer, desc: 'Manga ID.'
@@ -53,7 +58,7 @@ module MangaDex
       route_param :id do
         get do
           User.find_by(id: params[:id]).attributes.slice('id', 'username', 'admin', 'mod', 'public_relations',
-                                                         'created_at', 'last_sign_in_at', 'website', 'bio', 'supporter', 'md_at_home', 'avatar')
+                                                         'created_at', 'last_sign_in_at', 'website', 'bio', 'supporter', 'md_at_home', 'avatar_data')
         end
 
         desc 'Get partial information about the chapters uploaded by the user.'
@@ -69,6 +74,11 @@ module MangaDex
                                                          'show_moderated_posts', 'show_unavailable_chapters', 'shown_chapter_langs', 'excluded_tags')
         end
       end
+    end
+
+    desc 'Ping the server.'
+    get :ping do
+      'pong'
     end
 
     add_swagger_documentation info: { title: 'MangaDex', description: 'Read manga online for free at MangaDex with no ads, high quality images and support scanlation groups!' },

@@ -1,0 +1,36 @@
+<div class="card mb-3">
+  <h6 class="card-header d-flex align-items-center py-2">
+    <%= icon('fas', 'user') %>
+    <span class="mx-1"><%= @user.username %></span>
+    <%= @user.supporter? ? "<a href=\"/support\">#{icon('far fa-fw mr-1', 'gem')}</a>".html_safe : '' %>
+    <%= @user.md_at_home? ? "<a href=\"/md_at_home\">#{icon('fas mr-1 fa-fw', 'network-wired')}</a>".html_safe : '' %>
+  </h6>
+  <div class="card-body p-0">
+    <div class="row edit">
+      <div class="col-xl-3 col-lg-4 col-md-5"><%= display_avatar(@user.username, @user.id, true) %></div>
+      <div class="col-xl-9 col-lg-8 col-md-7">
+        <div class="row m-0 py-1 px-0">
+          <div class="col-lg-3 col-xl-2 strong">User ID:</div>
+          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'hashtag') %> <%= @user.id.to_i %></div>
+        </div>
+        <div class="row m-0 py-1 px-0 border-top">
+          <div class="col-lg-3 col-xl-2 strong">User level:</div>
+        </div>
+        <div class="row m-0 py-1 px-0 border-top">
+          <div class="col-lg-3 col-xl-2 strong">Joined:</div>
+          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'calendar-alt') %> <%= date_joined(@user.id) %></div>
+        </div>
+        <div class="row m-0 py-1 px-0 border-top">
+          <div class="col-lg-3 col-xl-2 strong">Last online:</div>
+          <div class="col-lg-9 col-xl-10"><%= icon('far', 'clock') %> <%= last_signed_in(@user.id) %></div>
+        </div>
+        <% if @user.website.present? %>
+          <div class="row m-0 py-1 px-0 border-top">
+            <div class="col-lg-3 col-xl-2 strong">Website:</div>
+            <div class="col-lg-9 col-xl-10"><%= icon('fas', 'external-link-alt') %> <a href="<%= @user.website %>" rel="nofollow" target="_blank"><%= @user.website %></a></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

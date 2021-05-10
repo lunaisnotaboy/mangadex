@@ -2,18 +2,14 @@
 
 one:
   hash: MyString
-  manga_id: 1
   volume: 1
   chapter: 1
   title: MyString
   language: MyString
-  views: 1
 
 two:
   hash: MyString
-  manga_id: 1
   volume: 1
   chapter: 1
   title: MyString
   language: MyString
-  views: 1

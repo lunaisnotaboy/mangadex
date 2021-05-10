@@ -46,7 +46,7 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.chapters (
     id bigint NOT NULL,
     hash character varying,
-    mangas_id bigint,
+    manga_id bigint,
     volume integer DEFAULT 0 NOT NULL,
     chapter integer DEFAULT 0 NOT NULL,
     title character varying DEFAULT ''::character varying NOT NULL,
@@ -77,32 +77,28 @@ ALTER SEQUENCE public.chapters_id_seq OWNED BY public.chapters.id;
 
 
 --
--- Name: mangas; Type: TABLE; Schema: public; Owner: -
+-- Name: manga; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.mangas (
+CREATE TABLE public.manga (
     id bigint NOT NULL,
-    title character varying NOT NULL,
-    alt_titles text DEFAULT ''::text,
+    titles text[] DEFAULT '{}'::text[],
     description text DEFAULT ''::text NOT NULL,
-    artist character varying DEFAULT ''::character varying,
-    author character varying DEFAULT ''::character varying NOT NULL,
     language character varying DEFAULT 'ja_JP'::character varying NOT NULL,
-    hentai boolean DEFAULT false NOT NULL,
+    type character varying DEFAULT 'manga'::character varying NOT NULL,
     links text[] DEFAULT '{}'::text[],
-    views integer DEFAULT 0 NOT NULL,
     last_updated timestamp without time zone,
-    cover text,
+    cover_data text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: mangas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: manga_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.mangas_id_seq
+CREATE SEQUENCE public.manga_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -111,10 +107,10 @@ CREATE SEQUENCE public.mangas_id_seq
 
 
 --
--- Name: mangas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: manga_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.mangas_id_seq OWNED BY public.mangas.id;
+ALTER SEQUENCE public.manga_id_seq OWNED BY public.manga.id;
 
 
 --
@@ -169,6 +165,11 @@ CREATE TABLE public.users (
     reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
     confirmation_token character varying,
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
@@ -176,29 +177,25 @@ CREATE TABLE public.users (
     username character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    mod boolean DEFAULT false,
-    admin boolean DEFAULT false,
+    admin boolean DEFAULT false NOT NULL,
+    mod boolean DEFAULT false NOT NULL,
     supporter boolean DEFAULT false,
     started_supporting_at timestamp without time zone,
+    public_relations boolean DEFAULT false NOT NULL,
     total_chapters_read integer DEFAULT 0 NOT NULL,
-    public_relations boolean DEFAULT false,
-    level integer DEFAULT 1 NOT NULL,
     website character varying DEFAULT ''::character varying NOT NULL,
     bio text DEFAULT ''::text NOT NULL,
     md_at_home boolean DEFAULT false NOT NULL,
-    avatar text,
+    avatar_data text,
     view_hentai boolean DEFAULT false NOT NULL,
     notify_when_updated boolean DEFAULT true NOT NULL,
     show_moderated_posts boolean DEFAULT false NOT NULL,
-    show_unavailable_chpaters boolean DEFAULT false NOT NULL,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
     theme character varying DEFAULT 'light'::character varying NOT NULL,
     excluded_tags text[] DEFAULT '{}'::text[],
-    shown_chapter_langs text[] DEFAULT '{en_US}'::text[]
+    shown_chapter_langs text[] DEFAULT '{en_US}'::text[],
+    nav integer,
+    mdh_portlimit boolean DEFAULT false NOT NULL,
+    show_unavailable_chpaters boolean DEFAULT false NOT NULL
 );
 
 
@@ -229,7 +226,7 @@ CREATE TABLE public.views (
     id bigint NOT NULL,
     type text[] DEFAULT '{}'::text[],
     users_id bigint,
-    mangas_id bigint,
+    manga_id bigint,
     chapters_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -263,10 +260,10 @@ ALTER TABLE ONLY public.chapters ALTER COLUMN id SET DEFAULT nextval('public.cha
 
 
 --
--- Name: mangas id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: manga id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.mangas ALTER COLUMN id SET DEFAULT nextval('public.mangas_id_seq'::regclass);
+ALTER TABLE ONLY public.manga ALTER COLUMN id SET DEFAULT nextval('public.manga_id_seq'::regclass);
 
 
 --
@@ -307,11 +304,11 @@ ALTER TABLE ONLY public.chapters
 
 
 --
--- Name: mangas mangas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: manga manga_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.mangas
-    ADD CONSTRAINT mangas_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.manga
+    ADD CONSTRAINT manga_pkey PRIMARY KEY (id);
 
 
 --
@@ -347,10 +344,10 @@ ALTER TABLE ONLY public.views
 
 
 --
--- Name: index_chapters_on_mangas_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_chapters_on_manga_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_chapters_on_mangas_id ON public.chapters USING btree (mangas_id);
+CREATE INDEX index_chapters_on_manga_id ON public.chapters USING btree (manga_id);
 
 
 --
@@ -410,10 +407,10 @@ CREATE INDEX index_views_on_chapters_id ON public.views USING btree (chapters_id
 
 
 --
--- Name: index_views_on_mangas_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_views_on_manga_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_views_on_mangas_id ON public.views USING btree (mangas_id);
+CREATE INDEX index_views_on_manga_id ON public.views USING btree (manga_id);
 
 
 --
@@ -432,19 +429,19 @@ ALTER TABLE ONLY public.views
 
 
 --
--- Name: chapters fk_rails_850a7529ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: chapters fk_rails_58f6d77081; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chapters
-    ADD CONSTRAINT fk_rails_850a7529ef FOREIGN KEY (mangas_id) REFERENCES public.mangas(id);
+    ADD CONSTRAINT fk_rails_58f6d77081 FOREIGN KEY (manga_id) REFERENCES public.manga(id);
 
 
 --
--- Name: views fk_rails_abec7bceb1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: views fk_rails_a0cc03e878; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.views
-    ADD CONSTRAINT fk_rails_abec7bceb1 FOREIGN KEY (mangas_id) REFERENCES public.mangas(id);
+    ADD CONSTRAINT fk_rails_a0cc03e878 FOREIGN KEY (manga_id) REFERENCES public.manga(id);
 
 
 --
@@ -470,30 +467,16 @@ ALTER TABLE ONLY public.views
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20210429131044'),
-('20210429131247'),
-('20210429161925'),
-('20210429170417'),
-('20210429191208'),
-('20210429191904'),
-('20210430135933'),
-('20210430145245'),
-('20210430152548'),
-('20210430180041'),
-('20210430180202'),
-('20210430180504'),
-('20210430180748'),
-('20210430180841'),
-('20210430183752'),
-('20210430184228'),
-('20210430184600'),
-('20210430184739'),
-('20210504143828'),
-('20210504172047'),
-('20210504172635'),
-('20210504173528'),
-('20210504182737'),
-('20210504191000'),
-('20210504191242');
+('20210510143018'),
+('20210510143110'),
+('20210510143358'),
+('20210510143434'),
+('20210510143530'),
+('20210510143613'),
+('20210510144226'),
+('20210510150603'),
+('20210510150650'),
+('20210510151250'),
+('20210510151517');
 
 

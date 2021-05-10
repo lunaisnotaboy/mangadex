@@ -22,9 +22,6 @@
       <meta name="app" content="MangaDex" data-guest="<%= user_signed_in? ? 0 : 1 %>" data-chapter-id="<%= content_for?(:page_id) ? yield(:page_id) : '' %>" data-page="<%= content_for?(:p) ? yield(:p) : 1 %>" />
       <%= stylesheet_pack_tag 'reader' %>
     <% end %>
-
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'bootstrap' %>
   </head>
 
   <body>
@@ -56,5 +53,7 @@
     <footer class="footer">
       <p class="m-0 text-center text-muted">&copy; <%= Time.now.year.to_s %> <a href="<%= root_url %>" title="<%= request.host %>">MangaDex</a> | <a href="https://path.net/" target="_blank" title="Provider of DDoS mitigation services">Path Network</a> | <a href="https://sdbx.moe/" target="_blank" title="seedbox provider">sdbx.moe</a> | <a href="https://ddos-guard.net?affiliate=119953" target="_blank" title="ddos-guard">DDoS Protection by DDoS-GUARD</a> | <a href="https://onramper.com/" target="_blank" title="Crypto Widget">Onramper</a></p>
     </footer>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'bootstrap' %>
   </body>
 </html>
