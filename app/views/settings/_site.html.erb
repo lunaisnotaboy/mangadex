@@ -1,0 +1,44 @@
+<div role="tabpanel" class="tab-pane fade show active" id="site_settings">
+  <%= simple_form_for(@user, url: settings_path) do |f| %>
+    <%= f.input_field :email, hidden: true, required: true %>
+    <div class="form-group row">
+      <%= f.label :theme, label: 'Site theme:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :theme, class: 'form-control selectpicker', :collection => [['Light', 'light'], ['Light (Slate)', 'light-slate']] %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :notify_when_updated, label: 'Notify when updated:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :notify_when_updated, class: 'form-control selectpicker', :collection => [['True', true], ['False', false]] %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :mdh_portlimit, label: 'MD@H Port limit:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :mdh_portlimit, class: 'form-control selectpicker', :collection => [['Normal', false], ['SSL Port (443) only', true]] %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :shown_chapter_langs, label: 'Shown chapter languages:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :shown_chapter_langs, class: 'form-control selectpicker show-tick', :collection => ShownLanguages::AVAILABLE_LANGUAGES.sort.map {|k,v| [v,k]}, :data => { actions_box: true, selected_text_format: 'count > 5'.html_safe, size: 10 }, multiple: true %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :view_hentai, label: 'Show Hentai:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :view_hentai, class: 'form-control selectpicker', :collection => [['Hide', false], ['Show', true]] %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :show_unavailable_chapters, label: 'Unavailable chapters:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :show_unavailable_chapters, class: 'form-control selectpicker', :collection => [['Hide', false], ['Show', true]] %>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-secondary"><%= icon('fas', 'save') %> Save</button>
+    </div>
+  <% end %>
+</div>

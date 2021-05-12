@@ -8,7 +8,7 @@ require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
   # Draw Devise scopes
 
-  devise_scope :user do
+  devise_scope :users do
     get '/password_reset', to: 'devise/passwords#new'
     get '/login', to: 'devise/sessions#new'
     get '/signup', to: 'devise/registrations#new'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   # Authenticate user, verify admin status, then grant access to admin-only URLs
 
-  authenticate :user, ->(user) { user.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
 
     get '/admin', to: 'admin#index'
@@ -30,19 +30,17 @@ Rails.application.routes.draw do
     get '/admin/sidekiq', to: 'admin#sidekiq'
   end
 
-  authenticate :user do
-    get '/settings', to: 'settings#index'
-
-    get '/settings/profile', to: 'settings#profile'
-
-    get '/settings/site', to: 'settings#site'
-  end
-
   # Users
 
   get '/user/:id/:username', to: 'user#show'
 
   get '/user/:id', to: 'user#show'
+
+  get '/settings', to: 'settings#edit', as: 'user'
+
+  patch '/settings', to: 'settings#update'
+  
+  put '/settings', to: 'settings#update'
 
   # Manga
 
