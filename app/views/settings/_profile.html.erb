@@ -1,0 +1,46 @@
+<div role="tabpanel" class="tab-pane fade" id="change_profile">
+  <%= simple_form_for(@user, url: settings_path) do |f| %>
+    <div class="form-group row">
+      <%# Username must be changed manually; Required is set to false to get rid of annoying thing %>
+      <%= f.label :username, label: 'Username:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label', required: false %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :username, class: 'form-control', title: 'Send ixlone a message on site to change this.', disabled: true %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :email, label: 'Email:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :email, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :website, label: 'Website:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :website, class: 'form-control', placeholder: 'http:// or https:// required (Defaults to your MangaDex profile page if not set.)' %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :bio, label: 'Biography:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <%= f.input_field :bio, class: 'form-control', as: :text %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :avatar, label: 'Avatar:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <div class="col-md-8 col-lg-9 col-xl-10">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Leave blank if no change to image. Max 1MB" disabled name="old_file">
+          <%= f.input :avatar, as: :hidden, input_html: { value: @user.cached_avatar_data } %>
+          <span class="input-group-append">
+            <span class="btn btn-secondary btn-file">
+              <%= icon('far', 'folder-open') %> <span>Browse</span> <%= f.input_field :avatar, as: :file %>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-secondary"><%= icon('fas', 'save') %> Save</button>
+    </div>
+  <% end %>
+</div>

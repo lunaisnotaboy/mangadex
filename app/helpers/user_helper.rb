@@ -5,19 +5,19 @@ module UserHelper
     User.find(id).created_at.strftime('%Y-%m-%d')
   end
 
-  def last_signed_in(id)
-    User.find(id).last_sign_in_at.strftime('%Y-%m-%d %k:%M')
+  def last_online(id)
+    User.find(id).last_active_at.strftime('%Y-%m-%d %k:%M')
   end
 
   def user_level_color(id)
     if User.find(id).admin?
-      'f54242'
+      'admin-color'
     elsif User.find(id).mod?
-      'f5ce42'
+      'mod-color'
     elsif User.find(id).public_relations?
-      '4287f5'
+      'pr-color'
     else
-      '000'
+      'user-color'
     end
   end
 

@@ -3,7 +3,7 @@
 require 'image_processing/mini_magick'
 
 class ImageUploader < Shrine
-  plugin :derivation_endpoint, prefix: 'derivations/image' # matches mount point
+  plugin :derivation_endpoint, prefix: 'uploads/size' # matches mount point
   plugin :default_url
 
   derivation :thumbnail do |file, width, height|

@@ -8,7 +8,7 @@ require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
   # Draw Devise scopes
 
-  devise_scope :users do
+  devise_scope :user do
     get '/password_reset', to: 'devise/passwords#new'
     get '/login', to: 'devise/sessions#new'
     get '/signup', to: 'devise/registrations#new'
@@ -36,10 +36,10 @@ Rails.application.routes.draw do
 
   get '/user/:id', to: 'user#show'
 
-  get '/settings', to: 'settings#edit', as: 'user'
+  get '/settings', to: 'settings#edit'
 
   patch '/settings', to: 'settings#update'
-  
+
   put '/settings', to: 'settings#update'
 
   # Manga
@@ -74,5 +74,5 @@ Rails.application.routes.draw do
 
   # Mount endpoints
 
-  mount ImageUploader.derivation_endpoint => '/derivations/image'
+  mount ImageUploader.derivation_endpoint => '/uploads/size'
 end

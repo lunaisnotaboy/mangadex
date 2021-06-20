@@ -23,7 +23,7 @@ This file will list all assets not owned by me.
   - Owl.carousel
   - Lightbox2
   - Bootstrap Select
-  - JQuery
+  - jQuery
   - Popper.js
   - Font Awesome
   - Sass
@@ -32,3 +32,6 @@ This file will list all assets not owned by me.
   - Devise
   - ShrineRB
   - Sentry
+  - Node.js
+  - Yarn
+  - Babel

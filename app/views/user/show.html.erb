@@ -11,11 +11,11 @@
       <div class="col-xl-9 col-lg-8 col-md-7">
         <div class="row m-0 py-1 px-0">
           <div class="col-lg-3 col-xl-2 strong">User ID:</div>
-          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'hashtag') %> <%= @user.id.to_i %></div>
+          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'hashtag') %> <%= @user.id %></div>
         </div>
         <div class="row m-0 py-1 px-0 border-top">
           <div class="col-lg-3 col-xl-2 strong">User level:</div>
-          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'graduation-cap') %> <span style="color: #<%= user_level_color(@user.id) %>;"><%= user_level(@user.id) %></span></div>
+          <div class="col-lg-9 col-xl-10"><%= icon('fas', 'graduation-cap') %> <span class="<%= user_level_color(@user.id) %>"><%= user_level(@user.id) %></span></div>
         </div>
         <div class="row m-0 py-1 px-0 border-top">
           <div class="col-lg-3 col-xl-2 strong">Joined:</div>
@@ -23,7 +23,7 @@
         </div>
         <div class="row m-0 py-1 px-0 border-top">
           <div class="col-lg-3 col-xl-2 strong">Last online:</div>
-          <div class="col-lg-9 col-xl-10"><%= icon('far', 'clock') %> <%= last_signed_in(@user.id) %></div>
+          <div class="col-lg-9 col-xl-10"><%= icon('far', 'clock') %> <%= last_online(@user.id) %></div>
         </div>
         <% if @user.website.present? %>
           <div class="row m-0 py-1 px-0 border-top">

@@ -40,7 +40,13 @@ module ApplicationHelper
     "https://github.com/lunaisnotaboy/mangadex/tree/#{current_commit_full}"
   end
 
-  def display_avatar(_ext, id, limit = nil)
-    "<img class=\"rounded #{limit.present? ? 'avatar-fit' : 'avatar'} mt-2\" alt=\"Avatar\" src=\"#{User.find(id).avatar_url}\">".html_safe
+  def display_avatar(username, id, fit = nil, resize = nil, width = 512, height = 512)
+    if resize.present?
+      image_tag(User.find(id).avatar.derivation_url(:thumbnail, width, height), alt: username, title: username,
+                                                                                class: "rounded-circle #{fit.present? ? 'avatar-fit' : 'avatar'} my-2 ml-2")
+    else
+      image_tag(User.find(id).avatar_url, alt: username, title: username,
+                                          class: "rounded-circle #{fit.present? ? 'avatar-fit' : 'avatar'} my-2 ml-2")
+    end
   end
 end

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <%= f.label :shown_chapter_langs, label: 'Shown chapter languages:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
+      <%= f.label :shown_chapter_langs, label: 'Shown languages:', class: 'col-md-4 col-lg-3 col-xl-2 col-form-label' %>
       <div class="col-md-8 col-lg-9 col-xl-10">
         <%= f.input_field :shown_chapter_langs, class: 'form-control selectpicker show-tick', :collection => ShownLanguages::AVAILABLE_LANGUAGES.sort.map {|k,v| [v,k]}, :data => { actions_box: true, selected_text_format: 'count > 5'.html_safe, size: 10 }, multiple: true %>
       </div>

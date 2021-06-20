@@ -195,7 +195,8 @@ CREATE TABLE public.users (
     shown_chapter_langs text[] DEFAULT '{en_US}'::text[],
     nav integer,
     mdh_portlimit boolean DEFAULT false NOT NULL,
-    show_unavailable_chapters boolean DEFAULT false NOT NULL
+    show_unavailable_chapters boolean DEFAULT false NOT NULL,
+    last_active_at timestamp without time zone
 );
 
 
@@ -478,6 +479,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210510150650'),
 ('20210510151250'),
 ('20210510151517'),
-('20210512142345');
+('20210512142345'),
+('20210512181221');
 
 
